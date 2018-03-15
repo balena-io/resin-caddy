@@ -14,7 +14,7 @@ FROM library/alpine:3.7
 
 COPY --from=build /out/caddy /usr/local/bin/caddy
 RUN mkdir -p /var/lib/caddy && touch /var/lib/caddy/Caddyfile
-VOLUME /var/lib/caddy
+VOLUME /var/lib/caddy/Caddyfile
 
 EXPOSE 80 443 2015
 ENTRYPOINT ["/usr/local/bin/caddy"]
