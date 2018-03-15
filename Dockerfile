@@ -16,5 +16,5 @@ COPY --from=build /out/caddy /usr/local/bin/caddy
 
 EXPOSE 80 443 2015
 ENTRYPOINT ["/usr/local/bin/caddy"]
-CMD ["-conf", "/var/lib/caddy/Caddyfile"]
+CMD ["-agree", "-conf", "/var/lib/caddy/Caddyfile"]
 
