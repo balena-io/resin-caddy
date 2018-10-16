@@ -1,16 +1,19 @@
-FROM library/golang:1.10-alpine as build
+FROM library/golang:1.11.1-alpine as build
 
-RUN apk update
-RUN apk add git
-RUN go get github.com/mholt/caddy/caddy
-RUN go get github.com/caddyserver/builds
+RUN apk add --no-cache git \
+  && go get github.com/mholt/caddy/caddy \
+  && go get github.com/caddyserver/builds
 
 WORKDIR $GOPATH/src/github.com/mholt/caddy/caddy
-RUN go run build.go
-RUN mkdir /out
-RUN cp caddy /out/caddy
+RUN sed -i 's/var EnableTelemetry.*/var EnableTelemetry = false/' caddymain/run.go \
+  && cat caddymain/run.go \
+  && go run build.go \
+  && mkdir /out \
+  && cp caddy /out/caddy
 
 FROM library/alpine:3.7
+
+RUN apk add --no-cache --update ca-certificates
 
 COPY --from=build /out/caddy /usr/local/bin/caddy
 
