@@ -1,0 +1,7 @@
+---
+docker:
+  builds:
+    - dockerfile: Dockerfile
+      path: .
+      docker_repo: resin/caddy
+
