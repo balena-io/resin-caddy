@@ -1,0 +1,9 @@
+:3005 {
+  tls off
+
+  root /
+}
+
+echo :2015 {
+  tls off
+}
